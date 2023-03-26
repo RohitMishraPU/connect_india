@@ -33,7 +33,7 @@ const employeeSchema = new Schema<IEMP>({
 	position:String,
 	hireDate : {
 		type: Date,
-		max: new Date().setHours(23, 59, 59, 999);
+		max: new Date().setHours(23, 59, 59, 999)
 	},
 	salary : {
 		type: Number,
@@ -56,3 +56,8 @@ const employeeSchema = new Schema<IEMP>({
 		type : Object
 	}
 });
+
+
+const Employee = model<IEMP>('Employee', employeeSchema);
+
+export default Employee;
