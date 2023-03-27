@@ -1,4 +1,5 @@
 import { Schema, Types, model } from "mongoose";
+import { Address } from "../common";
 
 type OrgReg = {
 	type : 'Sole Proprietorship' | 'Partner Firm' | 'LLP' | 'Private Limited';
@@ -9,13 +10,6 @@ type OrgReg = {
 type OrgInsurance = {
 	insuranceID :  string | number;
 	insuranceCompany : object;
-}
-type Address = {
-	street : string;
-	city : string;
-	state : string;
-	postalCode : string;
-	country : string;
 }
 interface IORG {
 	orgName : string;
