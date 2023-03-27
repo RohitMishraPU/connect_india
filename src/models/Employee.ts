@@ -54,6 +54,9 @@ const employeeSchema = new Schema<IEMP>({
 	},
 	assignedVehicle : {
 		type : Object
+	},
+	OrgId:{
+		type:Schema.Types.ObjectId, ref:'Organisation'
 	}
 });
 
