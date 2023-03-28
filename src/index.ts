@@ -53,15 +53,22 @@ try{
 		res.send('HEY THERE!! Holaaa');
 	});
 
+	app.get('/logout', (req, res)=>{
+		(req as any).logout(err =>{
+			if(err) return res.status(500).json({message : 'Error While logging out',
+				error : err
+			})
+			return res.status(200).send('Successfully Logged Out');
+		});
+	});
 	app.listen(3000, ()=> console.log('App is listening @3000'));
 
 	function checkAuthenticated(req, res, next) {
 		if (req.isAuthenticated()) {
-			console.log(req);
 		  return next()
 		}
 	  
-		res.status(401).json({message : 'Unauthorized'});
+		res.status(401).json({error : 'Unauthorized'});
 	  }
 
 	  function checkNotAuthenticated(req, res, next) {

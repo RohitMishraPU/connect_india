@@ -47,9 +47,6 @@ router.post('/signup', async(req : Request,res : Response)=>{
 	}
 });
 
-// router.post('/login', passport.authenticate('local'), (req : AuthenticatedRequest, res) => {
-// 	res.status(200).json(req.user);
-// });
 
 router.post('/login', (req : Request, res : Response, next : NextFunction)=>{
 	const { email, password } = req.body;
