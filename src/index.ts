@@ -5,7 +5,9 @@ import session from 'express-session';
 import passport from 'passport';
 import flash from 'express-flash';
 import cors from 'cors';
+import MongoStore from 'connect-mongo';
 
+//CORS config
 const allowedOrigins = ['http://localhost:3001']; // add your allowed origin here
 
 const corsOptions = {
@@ -30,10 +32,16 @@ app.use(cors(corsOptions));
 app.use(express.json());
 app.use(flash());
 app.use(session({
-	secret : process.env.SESSION_SECRET,
-	resave : false,
-	saveUninitialized : false
-}));
+	secret: process.env.SESSION_SECRET,
+	resave: false,
+	saveUninitialized: false,
+	store:  MongoStore.create({
+		mongoUrl: process.env.MONGO_SESSION_URL,
+		ttl: 86400,
+		autoRemove:'native'
+	  })
+
+  }));
 app.use(passport.initialize());
 app.use(passport.session());
 
