@@ -1,11 +1,11 @@
 import { Schema, Types, model } from "mongoose";
 
-interface IUSER{
+export interface IUSER{
 	name:string;
 	email:string;
 	password:string;
-	organization:Types.ObjectId;
-	role: 'admin' | 'manager';
+	organization:Types.ObjectId[];
+	role: 'super admin'|'admin' | 'manager';
 	createdAt: Date;
 	updatedAt:Date
 }
@@ -26,7 +26,7 @@ const userSchema = new Schema<IUSER>({
 		required:true
 	},
 	organization:{
-		type:Schema.Types.ObjectId,
+		type:[Schema.Types.ObjectId],
 		ref:'Organisation'
 	},
 	role:{

@@ -1,12 +1,14 @@
 import express from 'express';
 import mongoose from 'mongoose';
-import authRouter from'./routes/authRoutes';
 import session from 'express-session';
 import passport from 'passport';
 import flash from 'express-flash';
 import cors from 'cors';
 import MongoStore from 'connect-mongo';
 
+
+import authRouter from'./routes/authRoutes';
+import orgRouter from'./routes/orgRoutes';
 //CORS config
 const allowedOrigins = ['http://localhost:3001']; // add your allowed origin here
 
@@ -55,6 +57,7 @@ try{
 	db.on('error', error =>  console.log(error));
 
 	app.use('/auth',checkNotAuthenticated, authRouter);
+	app.use('/orgs',checkAuthenticated, orgRouter);
 
 	// Generic routes
 	app.get('/', checkAuthenticated, (req,res)=>{
