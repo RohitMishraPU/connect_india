@@ -59,11 +59,6 @@ try{
 	app.use('/auth',checkNotAuthenticated, authRouter);
 	app.use('/orgs',checkAuthenticated, orgRouter);
 
-	// Generic routes
-	app.get('/', checkAuthenticated, (req,res)=>{
-		res.send('HEY THERE!! Holaaa');
-	});
-
 	app.get('/logout', (req, res)=>{
 		(req as any).logout(err =>{
 			if(err) return res.status(500).json({message : 'Error While logging out',
@@ -90,5 +85,5 @@ try{
 	  }
 
 }catch(error){
-	console.log(error);
+	console.error(error);
 }
