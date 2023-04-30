@@ -15,7 +15,8 @@ interface IVECHILE{
 		description : string;
 		cost: number;
 	}[];
-	driverId : Types.ObjectId
+	driverId : Types.ObjectId,
+	orgId : Types.ObjectId
 
 }
 
@@ -53,6 +54,11 @@ const vehicleSchema = new Schema<IVECHILE>({
 	driverId : {
 		type: Schema.Types.ObjectId,
 		ref : 'Employee'
+	},
+	orgId : {
+		type: Schema.Types.ObjectId,
+		ref:'Orgnaisation',
+		required : true
 	}
 
 

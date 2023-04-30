@@ -4,8 +4,9 @@ export interface IUSER{
 	name:string;
 	email:string;
 	password:string;
-	organization:Types.ObjectId[];
+	organisation:Types.ObjectId[];
 	role: 'super admin'|'admin' | 'manager';
+	defaultOrg: Types.ObjectId;
 	createdAt: Date;
 	updatedAt:Date
 }
@@ -25,9 +26,13 @@ const userSchema = new Schema<IUSER>({
 		type: String,
 		required:true
 	},
-	organization:{
+	organisation:{
 		type:[Schema.Types.ObjectId],
 		ref:'Organisation'
+	},
+	defaultOrg : {
+		type: Schema.Types.ObjectId,
+		ref : 'Organisation'
 	},
 	role:{
 		type:String,

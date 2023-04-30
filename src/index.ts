@@ -9,6 +9,7 @@ import MongoStore from 'connect-mongo';
 
 import authRouter from'./routes/authRoutes';
 import orgRouter from'./routes/orgRoutes';
+import vehicleRouter from './routes/vehichleRoutes';
 //CORS config
 const allowedOrigins = ['http://localhost:3001']; // add your allowed origin here
 
@@ -58,6 +59,7 @@ try{
 
 	app.use('/auth',checkNotAuthenticated, authRouter);
 	app.use('/orgs',checkAuthenticated, orgRouter);
+	app.use('/vehichle', checkAuthenticated, vehicleRouter);
 
 	app.get('/logout', (req, res)=>{
 		(req as any).logout(err =>{
@@ -67,6 +69,7 @@ try{
 			return res.status(200).send('Successfully Logged Out');
 		});
 	});
+
 	app.listen(3000, ()=> console.log('App is listening @3000'));
 
 	function checkAuthenticated(req, res, next) {
