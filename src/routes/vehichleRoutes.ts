@@ -21,7 +21,16 @@ router.get('/', async(req : AuthorisedRequest, res : Response)=>{
 
 router.post('/new', async(req : AuthorisedRequest, res : Response)=>{
 	try{
+		if(req.body){
+			
+			if(req.user.role === 'manager' || req.user.role ==='admin'){
 
+				const vehicle = await Vehicle.create({...req.body, ...(req.body.orgId ? {} : {orgId : req.user.defaultOrg})});
+
+				res.status(201).json(vehicle);
+			}else res.status(403).json({message : 'Unauthorized to create Vehichles'});
+
+		}else res.status(400).json({message : 'Bad Data'});
 	}catch(err){
 		console.error(err);
 		res.status(200).json({ message : 'Something went wrong', detail : err});
