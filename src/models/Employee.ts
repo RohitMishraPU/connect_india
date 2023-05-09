@@ -1,5 +1,6 @@
 import { Schema, Types, model } from "mongoose";
 import { Address } from "../common";
+import { addressSchema } from "./Organisation";
 
 
 interface IEMP{
@@ -7,7 +8,7 @@ interface IEMP{
 	phone : string;
 	email: string;
 	address: Address;
-	department : string;
+	role: 'driver' | 'dispatcher' | 'manager' | 'administrator';
 	position: string;
 	hireDate : Date;
 	salary : number;
@@ -28,8 +29,12 @@ const employeeSchema = new Schema<IEMP>({
 		required:true
 	},
 	email : String,
-	address : { type :Object, required:true},
-	department:String,
+	address : addressSchema,
+	role: {
+		type: String,
+		enum: ['driver', 'dispatcher', 'manager'],
+		required: true
+	  },
 	position:String,
 	hireDate : {
 		type: Date,
