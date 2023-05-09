@@ -3,6 +3,7 @@ import Organisation from '../models/Organisation';
 import { AuthorisedRequest } from '../common';
 import Users from '../models/Users';
 import mongoose from 'mongoose';
+import Vehicle from '../models/Vehicle';
 
 const router = express.Router();
 
@@ -65,4 +66,28 @@ router.get('/:orgID', async(req : AuthorisedRequest, res : Response)=>{
 		res.status(500).json({message : 'something went wrong', detail : error});
 	}
 })
+
+router.get('/:orgID/vehichles', async(req :AuthorisedRequest, res: Response)=>{
+	const orgID = req.params.orgID;
+	try{
+		if(!mongoose.Types.ObjectId.isValid(orgID))
+			res.status(400).json({message : 'Bad Data'});
+		else{
+			if(!req.user.organisation.includes(new mongoose.Types.ObjectId(orgID))){
+			res.status(403).json({message : 'Not Allowed to view the organisation detail'});
+			}else{
+				const org = await Vehicle.find({orgId : orgID});
+
+				if(org) res.status(200).json(org);
+			}
+		}
+		
+		
+	}catch(error){
+		console.error(error);
+
+		res.status(500).json({message : 'something went wrong', detail : error});
+	}
+})
+
 export default router;
