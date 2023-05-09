@@ -15,8 +15,8 @@ interface IVECHILE{
 		description : string;
 		cost: number;
 	}[];
-	driverId : Types.ObjectId,
-	orgId : Types.ObjectId
+	driverId : Types.ObjectId;
+	orgId : Types.ObjectId;
 
 }
 
