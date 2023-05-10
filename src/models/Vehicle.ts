@@ -1,6 +1,6 @@
 import { Schema, Types, model } from "mongoose";
 
-interface IVECHILE{
+interface IVEHICLE{
 	brand : string;
 	model : string;
 	mfgYear : string;
@@ -20,7 +20,7 @@ interface IVECHILE{
 
 }
 
-const vehicleSchema = new Schema<IVECHILE>({
+const vehicleSchema = new Schema<IVEHICLE>({
 	brand: {
 		type:String,
 	},
@@ -64,6 +64,6 @@ const vehicleSchema = new Schema<IVECHILE>({
 
 });
 
-const Vehicle = model<IVECHILE>('Vehicle', vehicleSchema);
+const Vehicle = model<IVEHICLE>('Vehicle', vehicleSchema);
 
 export default Vehicle;

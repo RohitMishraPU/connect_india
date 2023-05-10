@@ -17,7 +17,7 @@ interface IEMP{
 	directReports : Types.ObjectId[];
 	drivingLicenseNumber : string| number;
 	assignedVehicle : object;
-	OrgId : Types.ObjectId;
+	orgId : Types.ObjectId;
 }
 const employeeSchema = new Schema<IEMP>({
 	name: {
@@ -60,7 +60,7 @@ const employeeSchema = new Schema<IEMP>({
 	assignedVehicle : {
 		type : Object
 	},
-	OrgId:{
+	orgId:{
 		type:Schema.Types.ObjectId, ref:'Organisation'
 	}
 });
