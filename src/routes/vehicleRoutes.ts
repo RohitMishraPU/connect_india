@@ -28,7 +28,7 @@ router.post('/new', async(req : AuthorisedRequest, res : Response)=>{
 				const vehicle = await Vehicle.create({...req.body, ...(req.body.orgId ? {} : {orgId : req.user.defaultOrg})});
 
 				res.status(201).json(vehicle);
-			}else res.status(403).json({message : 'Unauthorized to create Vehichles'});
+			}else res.status(403).json({message : 'Unauthorized to create vehicles'});
 
 		}else res.status(400).json({message : 'Bad Data'});
 	}catch(err){
