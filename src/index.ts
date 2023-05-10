@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { NextFunction, Response } from 'express';
 import mongoose from 'mongoose';
 import session from 'express-session';
 import passport from 'passport';
@@ -8,8 +8,10 @@ import MongoStore from 'connect-mongo';
 
 
 import authRouter from'./routes/authRoutes';
-import orgRouter from'./routes/orgRoutes';
-import vehicleRouter from './routes/vehichleRoutes';
+import orgRouter, { checkOrgID } from'./routes/orgRoutes';
+import vehicleRouter from './routes/vehicleRoutes';
+import employeeRouter from './routes/employeeRoutes';
+
 //CORS config
 const allowedOrigins = ['http://localhost:3001']; // add your allowed origin here
 
@@ -59,7 +61,8 @@ try{
 
 	app.use('/auth',checkNotAuthenticated, authRouter);
 	app.use('/orgs',checkAuthenticated, orgRouter);
-	app.use('/vehichle', checkAuthenticated, vehicleRouter);
+	app.use('/vehicle', checkAuthenticated, vehicleRouter);
+	app.use('/employees', checkAuthenticated, employeeRouter);
 
 	app.get('/logout', (req, res)=>{
 		(req as any).logout(err =>{
@@ -72,7 +75,7 @@ try{
 
 	app.listen(3000, ()=> console.log('App is listening @3000'));
 
-	function checkAuthenticated(req, res, next) {
+	function checkAuthenticated(req: any, res : Response, next : NextFunction) {
 		if (req.isAuthenticated()) {
 		  return next()
 		}
